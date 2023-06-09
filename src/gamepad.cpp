@@ -117,6 +117,7 @@ void Gamepad::setup()
 	mapButtonR3  = new GamepadButtonMapping(convertPin(pinMappings.pinButtonR3),	GAMEPAD_MASK_R3);
 	mapButtonA1  = new GamepadButtonMapping(convertPin(pinMappings.pinButtonA1),	GAMEPAD_MASK_A1);
 	mapButtonA2  = new GamepadButtonMapping(convertPin(pinMappings.pinButtonA2),	GAMEPAD_MASK_A2);
+	mapCustomButtonC1 = new GamepadButtonMapping(convertPin(22),	GAMEPAD_MASK_B1);
 	
 	if(options.inputMode == INPUT_MODE_PS4 && options.switchTpShareForDs4)
 		f1Mask = GAMEPAD_MASK_A2 | GAMEPAD_MASK_S2;
@@ -135,7 +136,7 @@ void Gamepad::setup()
 		mapButtonB1, mapButtonB2, mapButtonB3, mapButtonB4,
 		mapButtonL1, mapButtonR1, mapButtonL2, mapButtonR2,
 		mapButtonS1, mapButtonS2, mapButtonL3, mapButtonR3,
-		mapButtonA1, mapButtonA2
+		mapButtonA1, mapButtonA2,mapCustomButtonC1
 	};
 
 	for (int i = 0; i < GAMEPAD_DIGITAL_INPUT_COUNT; i++)
@@ -250,6 +251,7 @@ void Gamepad::read()
 		| ((values & mapButtonR3->pinMask)  ? mapButtonR3->buttonMask  : 0)
 		| ((values & mapButtonA1->pinMask)  ? mapButtonA1->buttonMask  : 0)
 		| ((values & mapButtonA2->pinMask)  ? mapButtonA2->buttonMask  : 0)
+		| ((values & mapCustomButtonC1->pinMask) ? mapCustomButtonC1->buttonMask : 0)
 	;
 
 	state.lx = GAMEPAD_JOYSTICK_MID;
